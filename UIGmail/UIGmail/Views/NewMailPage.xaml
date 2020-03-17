@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:effects="clr-namespace:UIGmail.Effects"
+             mc:Ignorable="d"
+             x:Class="UIGmail.Views.NewMailPage"
+             BackgroundColor="White"
+             Title="Write"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             >
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_action_attachment.png"
+                     Order="Primary"
+                     Priority="0"
+                     Command="{Binding DelegateCommand}"/>
+        <ToolbarItem IconImageSource="ic_action_send_mdpi.png"
+                     Priority="1"
+                     Order="Primary"/>
+        <ToolbarItem Priority="2"
+                     Order="Primary"  
+                     IconImageSource="ic_action_more_vert_mdpi.png"
+                     />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid Padding="10,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="1" ios:Entry.CursorColor="Red">
+                <Entry.Effects>
+                    <effects:IsFocusedEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Label Text="From:" Grid.Column="0"
+                   VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Row="1" BackgroundColor="LightGray" 
+                   Grid.ColumnSpan="2"/>
+            <Entry Grid.Row="2" Grid.Column="1" ios:Entry.CursorColor="Red">
+                <Entry.Effects>
+                    <effects:IsFocusedEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Label Grid.Row="2"
+                   Text="To:"
+                   Grid.Column="0"
+                   VerticalOptions="CenterAndExpand"/>
+            <Label Grid.Row="3" BackgroundColor="LightGray" Grid.ColumnSpan="2"/>
+            <Entry Grid.Row="4" Placeholder="Asunto" Grid.ColumnSpan="2" ios:Entry.CursorColor="Red">
+                <Entry.Effects>
+                    <effects:LineRemovingEffect/>
+                </Entry.Effects>
+            </Entry>
+            <Editor Grid.Row="5" Placeholder="write a mail" Grid.ColumnSpan="2">
+                <Editor.Effects>
+                    <effects:LineRemovingEffect/>
+                </Editor.Effects>
+            </Editor>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:templateviews="clr-namespace:UIGmail.Views.TemplateViews"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:converters="clr-namespace:UIGmail.Converters"
+             xmlns:effects="clr-namespace:UIGmail.Effects"
+             mc:Ignorable="d"
+              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="UIGmail.Views.TemplateViews.ListMessageView"
+             BackgroundColor="White">
+
+    <ContentView.Resources>
+        <converters:IntToColor x:Key="IntToColorKey"/>
+        <converters:NameToLetterImage x:Key="NameToLetterImageKey"/>
+        <Style TargetType="ImageButton" x:Key="ButtonFloating">
+            <Setter Property="CornerRadius" Value="40"/>
+        </Style>
+        <Style TargetType="Label" x:Key="LabelMessage">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <CollectionView ItemsSource="{Binding Contacts}"
+                            >
+                <CollectionView.Header>
+                    <StackLayout Spacing="10"
+                     Padding="10,20,10,0">
+                        <templateviews:FrameView/>
+                        <Label Text="Received"/>
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <pancakeview:PancakeView >
+                            <Grid Padding="10" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="25"/>
+                                </Grid.ColumnDefinitions>
+                                <ImageButton Source="{Binding Name,Converter={StaticResource NameToLetterImageKey}}"
+                                       Grid.Column="0"
+                                       BackgroundColor="{Binding Color, Converter={StaticResource IntToColorKey}}"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
+                                       CornerRadius="40"/>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="18"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center"
+                                      Style="{StaticResource LabelMessage }"/>
+                                <Label Grid.Row="0"
+                                       Grid.ColumnSpan="3"
+                                       HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                       Style="{StaticResource LabelMessage}"
+                                       Text="{Binding TimeNow}" />
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       TextColor="LightSlateGray"
+                                       Style="{StaticResource LabelMessage}"
+                                       Text="{Binding Message.Description}"/>
+                                <ImageButton Grid.Column="2"
+                                             Grid.Row="1"
+                                             Source="ic_action_star_border.png"
+                                             VerticalOptions="StartAndExpand">
+                                </ImageButton>
+
+                            </Grid>
+                        </pancakeview:PancakeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+            <pancakeview:PancakeView 
+                         BackgroundColor="White"
+                        HorizontalOptions="End" 
+                    WidthRequest="60"
+                    HeightRequest="60" 
+                        HasShadow="True"
+                    TranslationY="-40"
+                    CornerRadius="40"
+                     TranslationX="-10"
+                     VerticalOptions="End">
+                <ImageButton Source="ic_.png"
+                             Command="{Binding NewMailCommand}"
+                             android:Button.UseDefaultShadow="True"/>
+                </pancakeview:PancakeView>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

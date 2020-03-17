@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:templateviews="clr-namespace:UIGmail.Views.TemplateViews"
+             mc:Ignorable="d"
+             x:Class="UIGmail.Views.TemplateViews.MenuView">
+    <ContentView.Resources>
+        <Style TargetType="Label" x:Key="LabelGmail">
+            <Setter Property="TextColor" Value="#D44638"/>
+        </Style>
+    </ContentView.Resources>
+    
+        <ContentView.Content>
+        <StackLayout Padding="10" >
+            <CollectionView ItemsSource="{Binding ItemsMasters}"
+                            SelectedItem="{Binding SelectItemMaster}"
+                            SelectionMode="Single">
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="You dont have any message"
+                               FontSize="20"
+                               />
+                        <Image Source="ic_action_mail_outline.png"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout  Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.Header>
+                    <StackLayout Spacing="0">
+                        <Label Text="Gmail"
+                               Style="{StaticResource LabelGmail}"
+                               HeightRequest="50"
+                               FontSize="28"/>
+                        <Label BackgroundColor="LightGray" 
+                               HeightRequest="1"/>
+                        <templateviews:ItemMasterView Title="Received" 
+                                                      ItemImage="OutBoxImage"
+                                                      SubTitle="80">
+                            <templateviews:ItemMasterView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPageCommand}"
+                                                      CommandParameter="/ReceivedPage"
+                                                      NumberOfTapsRequired="1"/>
+                            </templateviews:ItemMasterView.GestureRecognizers>
+                        </templateviews:ItemMasterView>
+                        <templateviews:ItemMasterView Title="Importants"
+                                                      SubTitle="85">
+                            <templateviews:ItemMasterView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPageCommand}"
+                                                      CommandParameter="/ImportantPage"
+                                                      NumberOfTapsRequired="1"/>
+                            </templateviews:ItemMasterView.GestureRecognizers>
+                        </templateviews:ItemMasterView>
+                        <templateviews:ItemMasterView Title="Featured">
+                            <templateviews:ItemMasterView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPageCommand}"
+                                                      CommandParameter="/FeaturedPage"
+                                                      NumberOfTapsRequired="1"/>
+                            </templateviews:ItemMasterView.GestureRecognizers>
+                        </templateviews:ItemMasterView>
+                        <Label Text="Alls Tags" FontSize="20"/>
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templateviews:ItemMasterView Title="{Binding Title}"
+                                                      ItemImage="{Binding Image}"
+                                                      />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <StackLayout Spacing="0">
+                        <Label Text="Apps google" FontSize="20"/>
+                        <templateviews:ItemMasterView Title="Calendar" ItemImage="ic_action_calendar_today"/>
+                        <templateviews:ItemMasterView Title="Contacts" ItemImage="ContactsImage"/>
+                        <templateviews:ItemMasterView Title="Opcion" ItemImage="ic_action_settings"/>
+                        <templateviews:ItemMasterView Title="Help and coments" ItemImage="ic_action_help_outline"/>
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
